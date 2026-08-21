@@ -1,1 +1,324 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: Georgia, serif;
+  color: white;
+  background: #050008;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 45%, #5c174d 0%, #21051e 35%, #050008 75%);
+}
+
+.background::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(circle, rgba(255,70,160,.12), transparent 45%);
+  animation: atmosphere 8s ease-in-out infinite alternate;
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, white 1px, transparent 1px),
+    radial-gradient(circle, #ff9aca 1px, transparent 1px);
+  background-size: 90px 90px, 140px 140px;
+  animation: starsMove 20s linear infinite;
+  opacity: .55;
+}
+
+.moon {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  top: -70px;
+  right: -50px;
+  background: rgba(255,255,255,.08);
+  box-shadow: 0 0 80px rgba(255,100,190,.2);
+  animation: moonFloat 7s ease-in-out infinite;
+}
+
+.scene {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  width: min(92vw, 620px);
+  min-height: 520px;
+  padding: 55px 30px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 35px;
+  background: rgba(255,255,255,.07);
+  backdrop-filter: blur(20px);
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.5),
+    inset 0 0 40px rgba(255,100,180,.04);
+  animation: cardEnter 1.4s cubic-bezier(.16,1,.3,1);
+}
+
+.progress {
+  position: absolute;
+  top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  opacity: .8;
+}
+
+.line {
+  width: 120px;
+  height: 2px;
+  background: rgba(255,255,255,.2);
+}
+
+#progressBar {
+  width: 20%;
+  height: 100%;
+  background: #ff5ba7;
+  box-shadow: 0 0 10px #ff5ba7;
+  transition: width .8s ease;
+}
+
+.heart-container {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart {
+  font-size: 75px;
+  color: #ff4f9a;
+  text-shadow:
+    0 0 10px #ff4f9a,
+    0 0 35px #ff277f,
+    0 0 70px rgba(255,39,127,.6);
+  animation: heartbeat 1.3s ease-in-out infinite;
+  z-index: 2;
+}
+
+.heart-ring {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgba(255,100,180,.4);
+  border-radius: 50%;
+  animation: ring 2.5s ease-out infinite;
+}
+
+.small {
+  font-family: Arial, sans-serif;
+  letter-spacing: 5px;
+  font-size: 11px;
+  color: #ff9aca;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: clamp(35px, 7vw, 58px);
+  margin-bottom: 18px;
+  text-shadow: 0 5px 30px rgba(255,80,170,.35);
+}
+
+#subtext {
+  color: rgba(255,255,255,.75);
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  max-width: 450px;
+  margin: auto;
+}
+
+.answers {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 35px;
+  min-height: 55px;
+}
+
+button {
+  border: 0;
+  padding: 15px 28px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .35s cubic-bezier(.16,1,.3,1);
+}
+
+#yesBtn {
+  color: white;
+  background: linear-gradient(135deg, #ff2f83, #b41467);
+  box-shadow: 0 10px 30px rgba(255,40,130,.3);
+}
+
+#yesBtn:hover {
+  transform: translateY(-5px) scale(1.06);
+  box-shadow: 0 15px 40px rgba(255,40,130,.55);
+}
+
+#noBtn {
+  color: #ff4f9a;
+  background: rgba(255,255,255,.95);
+}
+
+#reaction {
+  margin-top: 25px;
+  min-height: 30px;
+  color: #ff9aca;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+#celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background:
+    radial-gradient(circle, #701d57, #160012 65%, #030003);
+  animation: celebrationIn 1.5s ease forwards;
+}
+
+#celebration h1 {
+  font-size: clamp(50px, 12vw, 100px);
+  margin: 10px;
+}
+
+#celebration h2 {
+  font-size: clamp(20px, 5vw, 35px);
+}
+
+#celebration p {
+  margin-top: 15px;
+  opacity: .8;
+  font-family: Arial, sans-serif;
+}
+
+.final-text {
+  margin-top: 35px;
+  color: #ff8fc2;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.big-heart {
+  font-size: 110px;
+  color: #ff4f9a;
+  text-shadow: 0 0 70px #ff2f83;
+  animation: finalHeart 1s infinite alternate;
+}
+
+.spark {
+  position: fixed;
+  pointer-events: none;
+  z-index: 200;
+  animation: sparkFly 2s ease-out forwards;
+}
+
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.12); }
+}
+
+@keyframes ring {
+  0% { transform: scale(.6); opacity: .8; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(80px) scale(.9) rotateX(15deg);
+    filter: blur(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes atmosphere {
+  from { transform: scale(1) translate(-2%, -2%); }
+  to { transform: scale(1.2) translate(2%, 2%); }
+}
+
+@keyframes starsMove {
+  from { transform: translateY(0); }
+  to { transform: translateY(100px); }
+}
+
+@keyframes moonFloat {
+  50% { transform: translate(-20px, 20px); }
+}
+
+@keyframes celebrationIn {
+  from { opacity: 0; transform: scale(1.15); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes finalHeart {
+  from { transform: scale(1); }
+  to { transform: scale(1.18); }
+}
+
+@keyframes sparkFly {
+  to {
+    transform: translate(
+      calc((var(--x) - 50) * 1vw),
+      calc((var(--y) - 50) * 1vh)
+    ) rotate(720deg) scale(0);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .card {
+    min-height: 500px;
+    padding: 45px 20px;
+  }
+
+  .answers {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  button {
+    width: 180px;
+  }
+}
